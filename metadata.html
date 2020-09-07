@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Metadata viewer</title>
-	<meta charset="utf-8" />
+    <title>Metadata viewer</title>
+    <meta charset="utf-8" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="jquery.json-viewer.js"></script>
-	<link href="jquery.json-viewer.css" type="text/css" rel="stylesheet">
-	<style type="text/css">
-		.center {
-		  margin: auto;
-		  width: 75%;
-		  padding: 10px;
-		}
-		textarea {
-			min-height: 60px;
-			overflow-y: auto;
-			word-wrap:break-word
-		}
-	</style>
+    <script src="jquery.json-viewer.js"></script>
+    <link href="jquery.json-viewer.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        .center {
+            margin: auto;
+            width: 75%;
+            padding: 10px;
+        }
+        textarea {
+            min-height: 60px;
+            overflow-y: auto;
+            word-wrap:break-word
+        }
+    </style>
 </head>
 <body>
 <div class="center">
-	<input type="text" id="path" style="width: 100%" value="/latest/dynamic/instance-identity/document"/>
-	<br/>
-	<button onClick="fetchDataAndAddData()">Submit</button>
-	<br/>
-	<textarea id="text-render" style="width: 100%"></textarea>
-	<pre id="json-renderer"></pre>
+    <input type="text" id="path" style="width: 100%" value="/latest/dynamic/instance-identity/document"/>
+    <br/>
+    <button onClick="fetchDataAndAddData()">Submit</button>
+    <br/>
+    <textarea id="text-render" style="width: 100%"></textarea>
+    <pre id="json-renderer"></pre>
 </div>
 </body>
 <script>
-	function adjustHeight(el){
-		el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
-	}
-	function fetchDataAndAddData() {
-		fetch('/ec2/'+$('#path').val())
+    function adjustHeight(el){
+        el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : "60px";
+    }
+    function fetchDataAndAddData() {
+        fetch('/ec2/'+$('#path').val())
 		.then(response => response.text())
 		.then(text => {
-			console.log(text);
-			$('#text-render').val(text)
-			adjustHeight($('#text-render')[0]);
-			const data = JSON.parse(text);
-			$('#json-renderer').jsonViewer(data);
-		});
-	}
-fetchDataAndAddData();
+		    console.log(text);
+                    $('#text-render').val(text);
+                    adjustHeight($('#text-render')[0]);
+                    const data = JSON.parse(text);
+	            $('#json-renderer').jsonViewer(data);
+                });
+    }
+    fetchDataAndAddData();
 </script>
 </html>
